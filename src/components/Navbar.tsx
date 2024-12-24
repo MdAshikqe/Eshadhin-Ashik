@@ -3,10 +3,12 @@ import { Moon, ShoppingCart } from "lucide-react";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Eshadhin from "../assets/logo.png";
+import { useAppSelector } from "../redux/hooks";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const products = useAppSelector((state) => state.cart.products);
 
   const handleMenuToggle = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -45,7 +47,7 @@ const Header = () => {
                 <ShoppingCart size={24} />
               </Link>
               <span className="rounded-full absolute top-[-10px] left-[20px] bg-primary text-white text-center size-[25px]">
-                2
+                {products.length}
               </span>
             </li>
 
@@ -56,6 +58,24 @@ const Header = () => {
               >
                 <Moon size={24} />
               </button>
+            </li>
+
+            <li className="relative">
+              <Link
+                className="rounded-lg backdrop-blur-[2px] p-1 inline-block"
+                to={"/login"}
+              >
+                Login
+              </Link>
+            </li>
+
+            <li className="relative">
+              <Link
+                className="rounded-lg backdrop-blur-[2px] p-1 inline-block"
+                to={"/register"}
+              >
+                Register
+              </Link>
             </li>
           </ul>
         </div>

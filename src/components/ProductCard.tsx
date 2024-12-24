@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import Modal from "./Modal";
+import { useAppDispatch } from "../redux/hooks";
+import { addToCart } from "../redux/features/cartSlice";
 
 const ProductCart = ({ product }: { product: any }) => {
+  const dispatch = useAppDispatch();
   const [showModal, setShowModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
 
@@ -13,6 +16,10 @@ const ProductCart = ({ product }: { product: any }) => {
   const handleCloseModal = () => {
     setSelectedProduct(null);
     setShowModal(false);
+  };
+
+  const handleAddToCart = (product: any) => {
+    dispatch(addToCart(product));
   };
 
   return (
@@ -43,6 +50,7 @@ const ProductCart = ({ product }: { product: any }) => {
           <button
             onClick={(e) => {
               e.stopPropagation();
+              handleAddToCart(product);
             }}
             className="bg-green-700 text-white font-semibold py-2 px-4 rounded-lg hover:bg-green-800 transition duration-300 shadow-md hover:shadow-lg"
           >
